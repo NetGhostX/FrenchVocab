@@ -1,0 +1,1034 @@
+[
+  {
+    "french": "chercher",
+    "german": "suchen",
+    "phonetic": "[ʃɛʁʃe]",
+    "tip": "an/qc (jdn./etw.) = jemanden/etwas",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'chercher' auf Deutsch?",
+      "options": ["suchen", "finden", "sprechen", "oder"],
+      "correctAnswer": "suchen"
+    }
+  },
+  {
+    "french": "trouver",
+    "german": "finden",
+    "phonetic": "[tʁuve]",
+    "tip": "qn/qc (jdn./etw.) = jemanden/etwas",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches Wort entspricht 'trouver' auf Deutsch?",
+      "options": ["suchen", "finden", "sprechen", "wissen"],
+      "correctAnswer": "finden"
+    }
+  },
+  {
+    "french": "parler",
+    "german": "sprechen",
+    "phonetic": "[paʁle]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'parler'?",
+      "options": ["schreiben", "hören", "sprechen", "lesen"],
+      "correctAnswer": "sprechen"
+    }
+  },
+  {
+    "french": "ou",
+    "german": "oder",
+    "phonetic": "[u]",
+    "tip": "Verwechsle 'ou' (oder) nicht mit 'où' (wo), das einen accent grave trägt",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Bedeutung von 'ou'?",
+      "options": ["und", "oder", "wo", "was"],
+      "correctAnswer": "oder"
+    }
+  },
+  {
+    "french": "le rock",
+    "german": "die Rockmusik",
+    "phonetic": "[ləʁɔk]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'le rock'?",
+      "options": ["die Rockmusik", "der Stein", "die Band", "die Gitarre"],
+      "correctAnswer": "die Rockmusik"
+    }
+  },
+  {
+    "french": "l'électro",
+    "german": "die Elektro-Musik",
+    "phonetic": "[lelektʁo]",
+    "tip": "f. (feminin)",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'l'électro' auf Deutsch?",
+      "options": ["die Elektrizität", "die Elektro-Musik", "der Strom", "das Elektrogerät"],
+      "correctAnswer": "die Elektro-Musik"
+    }
+  },
+  {
+    "french": "la musique classique",
+    "german": "die klassische Musik",
+    "phonetic": "[la myzik klasik]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'la musique classique' ins Deutsche?",
+      "options": ["die moderne Musik", "die Tanzmusik", "die klassische Musik", "die antike Musik"],
+      "correctAnswer": "die klassische Musik"
+    }
+  },
+  {
+    "french": "il y a",
+    "german": "es gibt; es ist; es sind",
+    "phonetic": "[ilja]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'il y a'?",
+      "options": ["da ist", "es gibt", "hier ist", "dort gibt es"],
+      "correctAnswer": "es gibt"
+    }
+  },
+  {
+    "french": "un élève/une élève",
+    "german": "ein Schüler/eine Schülerin",
+    "phonetic": "[ɛ̃nelɛv/ynelɛv]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un élève/une élève'?",
+      "options": ["ein Lehrer/eine Lehrerin", "ein Schüler/eine Schülerin", "ein Student/eine Studentin", "ein Direktor/eine Direktorin"],
+      "correctAnswer": "ein Schüler/eine Schülerin"
+    }
+  },
+  {
+    "french": "le pop",
+    "german": "der Pop",
+    "phonetic": "[lapɔp]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welche Übersetzung ist korrekt für 'le pop'?",
+      "options": ["die Popmusik", "der Pop", "das Popcorn", "die Popularität"],
+      "correctAnswer": "der Pop"
+    }
+  },
+  {
+    "french": "le rap",
+    "german": "der Rap",
+    "phonetic": "[ləʁap]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die korrekte Übersetzung von 'le rap'?",
+      "options": ["die Rap-Musik", "der Rap", "das Klopfen", "der Rhythmus"],
+      "correctAnswer": "der Rap"
+    }
+  },
+  {
+    "french": "le hip-hop",
+    "german": "der Hip-Hop",
+    "phonetic": "[lipɔp]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'le hip-hop' ins Deutsche?",
+      "options": ["die Straßenmusik", "der Hip-Hop", "die Tanzart", "der Straßentanz"],
+      "correctAnswer": "der Hip-Hop"
+    }
+  },
+  {
+    "french": "un collège",
+    "german": "ein Collège",
+    "phonetic": "[ɛ̃kɔlɛʒ]",
+    "tip": "Nach der Grundschule gehen alle französischen Kinder für vier Jahre aufs collège",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un collège' im deutschen Kontext am ehesten?",
+      "options": ["ein Gymnasium", "eine Universität", "ein Collège", "eine Grundschule"],
+      "correctAnswer": "ein Collège"
+    }
+  },
+  {
+    "french": "une cour",
+    "german": "ein (Schul-)Hof",
+    "phonetic": "[ynkuʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'une cour'?",
+      "options": ["ein Klassenzimmer", "ein (Schul-)Hof", "eine Turnhalle", "ein Flur"],
+      "correctAnswer": "ein (Schul-)Hof"
+    }
+  },
+  {
+    "french": "une affiche",
+    "german": "ein Plakat; ein Poster",
+    "phonetic": "[ynafiʃ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'une affiche'?",
+      "options": ["eine Anzeige", "ein Plakat", "ein Brief", "eine Notiz"],
+      "correctAnswer": "ein Plakat"
+    }
+  },
+  {
+    "french": "là-bas",
+    "german": "dort(hin); da drüben",
+    "phonetic": "[laba]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'là-bas'?",
+      "options": ["hier", "dort(hin)", "überall", "nirgendwo"],
+      "correctAnswer": "dort(hin)"
+    }
+  },
+  {
+    "french": "Qu'est-ce que",
+    "german": "Was",
+    "phonetic": "[kɛskə]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'Qu'est-ce que'?",
+      "options": ["Wer", "Wie", "Was", "Warum"],
+      "correctAnswer": "Was"
+    }
+  },
+  {
+    "french": "au collège",
+    "german": "im Collège",
+    "phonetic": "[okɔlɛʒ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'au collège'?",
+      "options": ["zur Schule", "in der Universität", "im Collège", "zum Unterricht"],
+      "correctAnswer": "im Collège"
+    }
+  },
+  {
+    "french": "un stylo",
+    "german": "ein Füller; ein Kuli",
+    "phonetic": "[ɛ̃stilo]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Bedeutung von 'un stylo'?",
+      "options": ["ein Bleistift", "ein Füller", "ein Lineal", "ein Radiergummi"],
+      "correctAnswer": "ein Füller"
+    }
+  },
+  {
+    "french": "un ballon",
+    "german": "ein Ball",
+    "phonetic": "[ɛ̃balɔ̃]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un ballon' auf Deutsch?",
+      "options": ["ein Ball", "ein Luftballon", "ein Spielzeug", "eine Kugel"],
+      "correctAnswer": "ein Ball"
+    }
+  },
+  {
+    "french": "encore",
+    "german": "noch",
+    "phonetic": "[ɑ̃kɔʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'encore'?",
+      "options": ["wieder", "noch", "schon", "immer"],
+      "correctAnswer": "noch"
+    }
+  },
+  {
+    "french": "une table",
+    "german": "ein Tisch",
+    "phonetic": "[yntabl]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'une table'?",
+      "options": ["ein Stuhl", "ein Tisch", "eine Bank", "ein Schrank"],
+      "correctAnswer": "ein Tisch"
+    }
+  },
+  {
+    "french": "un sac",
+    "german": "eine Tasche",
+    "phonetic": "[ɛ̃sak]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'un sac' ins Deutsche?",
+      "options": ["ein Beutel", "ein Koffer", "eine Tasche", "ein Rucksack"],
+      "correctAnswer": "eine Tasche"
+    }
+  },
+  {
+    "french": "un cahier",
+    "german": "ein Heft",
+    "phonetic": "[ɛ̃kaje]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'un cahier'?",
+      "options": ["ein Buch", "ein Heft", "ein Ordner", "ein Blatt"],
+      "correctAnswer": "ein Heft"
+    }
+  },
+  {
+    "french": "Qu'est-ce qu'il y a?",
+    "german": "Was gibt es?",
+    "phonetic": "[kɛskilja]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'Qu'est-ce qu'il y a?'?",
+      "options": ["Was ist das?", "Was gibt es?", "Wie geht's?", "Was ist los?"],
+      "correctAnswer": "Was gibt es?"
+    }
+  },
+  {
+    "french": "retrouver",
+    "german": "jdn. treffen; etw. wiederfinden",
+    "phonetic": "[ʁətʁuve]",
+    "tip": "qn/qc (jdn./etw.)",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'retrouver' auf Deutsch?",
+      "options": ["jdn. treffen; etw. wiederfinden", "jdn./etw. besuchen", "jdn./etw. vermissen", "jdn./etw. verlieren"],
+      "correctAnswer": "jdn. treffen; etw. wiederfinden"
+    }
+  },
+  {
+    "french": "les autres élèves",
+    "german": "die anderen Schüler",
+    "phonetic": "[lezotʁ]",
+    "tip": "Achte auf die liaison: [lezotʁ]",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'les autres élèves'?",
+      "options": ["die alten Schüler", "die neuen Schüler", "die anderen Schüler", "die besten Schüler"],
+      "correctAnswer": "die anderen Schüler"
+    }
+  },
+  {
+    "french": "C'est une idée super.",
+    "german": "Das ist eine super Idee.",
+    "phonetic": "",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'C'est une idée super.' ins Deutsche?",
+      "options": ["Das ist eine neue Idee.", "Das ist eine schlechte Idee.", "Das ist eine super Idee.", "Das ist eine alte Idee."],
+      "correctAnswer": "Das ist eine super Idee."
+    }
+  },
+  {
+    "french": "autre",
+    "german": "anderer/andere/anderes",
+    "phonetic": "[otʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'autre' auf Deutsch?",
+      "options": ["anderer/andere/anderes", "erster/erste/erstes", "gleicher/gleiche/gleiches", "letzter/letzte/letztes"],
+      "correctAnswer": "anderer/andere/anderes"
+    }
+  },
+  {
+    "french": "une idée",
+    "german": "eine Idee; ein Gedanke",
+    "phonetic": "[ynide]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'une idée'?",
+      "options": ["ein Wunsch", "eine Idee", "ein Plan", "ein Traum"],
+      "correctAnswer": "eine Idee"
+    }
+  },
+  {
+    "french": "comme",
+    "german": "wie; als",
+    "phonetic": "[kɔm]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'comme'?",
+      "options": ["warum", "wenn", "wie", "weil"],
+      "correctAnswer": "wie"
+    }
+  },
+  {
+    "french": "Qu'est-ce qu'il y a comme activités?",
+    "german": "Was gibt es an Aktivitäten?",
+    "phonetic": "",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'Qu'est-ce qu'il y a comme activités?' korrekt?",
+      "options": ["Welche Aktivitäten magst du?", "Was gibt es an Aktivitäten?", "Wie viele Aktivitäten gibt es?", "Wo finden die Aktivitäten statt?"],
+      "correctAnswer": "Was gibt es an Aktivitäten?"
+    }
+  },
+  {
+    "french": "Je ne sais pas.",
+    "german": "Ich weiß (es) nicht.",
+    "phonetic": "[ʒənəsepa]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'Je ne sais pas.'?",
+      "options": ["Ich weiß (es) nicht.", "Ich kann nicht.", "Ich verstehe nicht.", "Ich will nicht."],
+      "correctAnswer": "Ich weiß (es) nicht."
+    }
+  },
+  {
+    "french": "arriver",
+    "german": "(an)kommen",
+    "phonetic": "[aʁive]",
+    "tip": "englisch: to arrive",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'arriver'?",
+      "options": ["ankommen", "abfahren", "bleiben", "weggehen"],
+      "correctAnswer": "ankommen"
+    }
+  },
+  {
+    "french": "un professeur de sport",
+    "german": "ein Sportlehrer",
+    "phonetic": "",
+    "tip": "Kurzform (umgangssprachlich): un prof",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'un professeur de sport'?",
+      "options": ["ein Sportler", "ein Sportlehrer", "ein Trainer", "ein Sportfan"],
+      "correctAnswer": "ein Sportlehrer"
+    }
+  },
+  {
+    "french": "le club théâtre",
+    "german": "die Theater-AG",
+    "phonetic": "",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'le club théâtre' auf Deutsch?",
+      "options": ["der Theaterbesuch", "der Theaterkurs", "die Theater-AG", "das Theaterstück"],
+      "correctAnswer": "die Theater-AG"
+    }
+  },
+  {
+    "french": "un professeur / une professeure",
+    "german": "ein Lehrer / eine Lehrerin",
+    "phonetic": "[ɛ̃pʁɔfesœʁ/ynpʁəfesœʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'un professeur / une professeure'?",
+      "options": ["ein Student / eine Studentin", "ein Lehrer / eine Lehrerin", "ein Direktor / eine Direktorin", "ein Dozent / eine Dozentin"],
+      "correctAnswer": "ein Lehrer / eine Lehrerin"
+    }
+  },
+  {
+    "french": "un club",
+    "german": "ein Klub; eine AG (in der Schule)",
+    "phonetic": "[ɛ̃klœb]",
+    "tip": "Die französische Aussprache ursprünglich englischer Wörter klingt oft anders als die richtige englische Aussprache",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die korrekte Übersetzung von 'un club' im schulischen Kontext?",
+      "options": ["ein Verein", "eine AG", "eine Mannschaft", "eine Gruppe"],
+      "correctAnswer": "eine AG"
+    }
+  },
+  {
+    "french": "une scène",
+    "german": "eine Szene; eine Bühne",
+    "phonetic": "[ynsen]",
+    "tip": "englisch: scene",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welche Übersetzung ist korrekt für 'une scène'?",
+      "options": ["ein Theater", "eine Bühne", "ein Vorhang", "ein Kostüm"],
+      "correctAnswer": "eine Bühne"
+    }
+  },
+  {
+    "french": "préparer",
+    "german": "etw. vorbereiten",
+    "phonetic": "[pʁepaʁe]",
+    "tip": "englisch: to prepare",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'préparer'?",
+      "options": ["präsentieren", "vorbereiten", "verschieben", "planen"],
+      "correctAnswer": "vorbereiten"
+    }
+  },
+  {
+    "french": "une pièce (de théâtre)",
+    "german": "ein (Theater-)Stück",
+    "phonetic": "[ynpjɛs]",
+    "tip": "englisch: a piece",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'une pièce (de théâtre)'?",
+      "options": ["ein Theatersaal", "ein Theaterstück", "eine Rolle", "eine Aufführung"],
+      "correctAnswer": "ein Theaterstück"
+    }
+  },
+  {
+    "french": "une BD",
+    "german": "ein Comic",
+    "phonetic": "[ynbede]",
+    "tip": "Abkürzung von 'une bande dessinée'. Abkürzungen bekommen im Plural kein -s: une BD (ein Comic), trois BD (drei Comics).",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'une BD'?",
+      "options": ["eine Zeitschrift", "ein Comic", "ein Buch", "eine Zeitung"],
+      "correctAnswer": "ein Comic"
+    }
+  },
+  {
+    "french": "Qu'est-ce que tu fais?",
+    "german": "Was machst du?",
+    "phonetic": "",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'Qu'est-ce que tu fais?' ins Deutsche?",
+      "options": ["Wer bist du?", "Was machst du?", "Woher kommst du?", "Was willst du?"],
+      "correctAnswer": "Was machst du?"
+    }
+  },
+  {
+    "french": "désolé/désolée",
+    "german": "es tut mir leid",
+    "phonetic": "[dezɔle]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'désolé/désolée'?",
+      "options": ["entschuldige", "es tut mir leid", "vergib mir", "schade"],
+      "correctAnswer": "es tut mir leid"
+    }
+  },
+  {
+    "french": "trop",
+    "german": "zu viel; zu sehr",
+    "phonetic": "[tʁo]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Bedeutung von 'trop'?",
+      "options": ["sehr", "zu viel", "genug", "wenig"],
+      "correctAnswer": "zu viel"
+    }
+  },
+  {
+    "french": "trop tard",
+    "german": "zu spät",
+    "phonetic": "[tʁotaʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'trop tard'?",
+      "options": ["zu früh", "zu spät", "zu lange", "zu schnell"],
+      "correctAnswer": "zu spät"
+    }
+  },
+  {
+    "french": "Que fait...?",
+    "german": "Was macht...?",
+    "phonetic": "[kəfe]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'Que fait...?'?",
+      "options": ["Was braucht...?", "Was macht...?", "Was will...?", "Was sieht...?"],
+      "correctAnswer": "Was macht...?"
+    }
+  },
+  {
+    "french": "Pourquoi pas?",
+    "german": "Warum nicht?",
+    "phonetic": "[puʁkwapa]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'Pourquoi pas?' ins Deutsche?",
+      "options": ["Weshalb?", "Warum nicht?", "Wie kommt es?", "Wieso denn?"],
+      "correctAnswer": "Warum nicht?"
+    }
+  },
+  {
+    "french": "un anniversaire",
+    "german": "ein Geburtstag",
+    "phonetic": "[ɛ̃nanivɛʁsɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un anniversaire'?",
+      "options": ["ein Geburtstag", "ein Jubiläum", "ein Feiertag", "ein Jahrestag"],
+      "correctAnswer": "ein Geburtstag"
+    }
+  },
+  {
+    "french": "le dix novembre",
+    "german": "am zehnten November",
+    "phonetic": "[lədisnovɑ̃bʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'le dix novembre'?",
+      "options": ["am dritten November", "am ersten November", "am zehnten November", "am zwanzigsten November"],
+      "correctAnswer": "am zehnten November"
+    }
+  },
+  {
+    "french": "une fête",
+    "german": "ein Fest",
+    "phonetic": "[ynfɛt]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'une fête' ins Deutsche?",
+      "options": ["ein Fest", "eine Feier", "eine Party", "ein Geburtstag"],
+      "correctAnswer": "ein Fest"
+    }
+  },
+  {
+    "french": "Joyeux anniversaire!",
+    "german": "Alles Gute zum Geburtstag!; Herzlichen Glückwunsch zum Geburtstag!",
+    "phonetic": "[ʒwajøzanivɛʁsɛʁ]",
+    "tip": "Achte auf die liaison: [ʒwajøzanivɛʁsɛʁ]",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'Joyeux anniversaire!'?",
+      "options": ["Frohe Weihnachten!", "Alles Gute zum Geburtstag!", "Gute Reise!", "Schöne Ferien!"],
+      "correctAnswer": "Alles Gute zum Geburtstag!"
+    }
+  },
+  {
+    "french": "un gâteau/des gâteaux",
+    "german": "ein Kuchen",
+    "phonetic": "[ɛ̃gɑto/degɑto]",
+    "tip": "Plural mit -x: un gâteau - deux gâteaux",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die korrekte Übersetzung von 'un gâteau'?",
+      "options": ["eine Torte", "ein Kuchen", "ein Keks", "ein Dessert"],
+      "correctAnswer": "ein Kuchen"
+    }
+  },
+  {
+    "french": "une bougie",
+    "german": "eine Kerze",
+    "phonetic": "[ynbuʒi]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'une bougie'?",
+      "options": ["ein Feuerzeug", "eine Kerze", "ein Streichholz", "eine Lampe"],
+      "correctAnswer": "eine Kerze"
+    }
+  },
+  {
+    "french": "un cadeau/des cadeaux",
+    "german": "ein Geschenk; Geschenke",
+    "phonetic": "[ɛ̃kado]",
+    "tip": "Plural mit -x: un cadeau - deux cadeaux",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welche Übersetzung ist korrekt für 'un cadeau'?",
+      "options": ["ein Brief", "ein Geschenk", "eine Karte", "eine Einladung"],
+      "correctAnswer": "ein Geschenk"
+    }
+  },
+  {
+    "french": "une famille",
+    "german": "eine Familie",
+    "phonetic": "[ynfamij]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'une famille'?",
+      "options": ["eine Freundschaft", "eine Familie", "eine Gruppe", "eine Gemeinschaft"],
+      "correctAnswer": "eine Familie"
+    }
+  },
+  {
+    "french": "aujourd'hui",
+    "german": "heute",
+    "phonetic": "[oʒuʁdɥi]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'aujourd'hui'?",
+      "options": ["heute", "morgen", "gestern", "jetzt"],
+      "correctAnswer": "heute"
+    }
+  },
+  {
+    "french": "dimanche",
+    "german": "am Sonntag; Sonntag",
+    "phonetic": "[dimɑ̃ʃ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'dimanche' ins Deutsche?",
+      "options": ["Montag", "Donnerstag", "Sonntag", "Samstag"],
+      "correctAnswer": "Sonntag"
+    }
+  },
+  {
+    "french": "mon/ma/mes",
+    "german": "mein; meine",
+    "phonetic": "[mɔ̃/ma/me]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'mon/ma/mes'?",
+      "options": ["dein/deine", "sein/seine", "mein/meine", "ihr/ihre"],
+      "correctAnswer": "mein/meine"
+    }
+  },
+  {
+    "french": "des grands-parents",
+    "german": "Großeltern",
+    "phonetic": "[degrɑ̃parɑ̃]",
+    "tip": "m,pl. (maskulin, Plural)",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'des grands-parents'?",
+      "options": ["die Eltern", "die Großeltern", "die Verwandten", "die Geschwister"],
+      "correctAnswer": "die Großeltern"
+    }
+  },
+  {
+    "french": "habiter",
+    "german": "wohnen",
+    "phonetic": "[abite]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'habiter'?",
+      "options": ["haben", "wohnen", "leben", "besitzen"],
+      "correctAnswer": "wohnen"
+    }
+  },
+  {
+    "french": "une mère",
+    "german": "eine Mutter",
+    "phonetic": "[ynmɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'une mère'?",
+      "options": ["ein Vater", "eine Mutter", "eine Tante", "eine Schwester"],
+      "correctAnswer": "eine Mutter"
+    }
+  },
+  {
+    "french": "un père",
+    "german": "ein Vater",
+    "phonetic": "[ɛ̃pɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'un père' korrekt?",
+      "options": ["ein Bruder", "ein Vater", "ein Sohn", "ein Onkel"],
+      "correctAnswer": "ein Vater"
+    }
+  },
+  {
+    "french": "une belle-mère",
+    "german": "eine Stiefmutter",
+    "phonetic": "[ynbɛlmɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'une belle-mère'?",
+      "options": ["eine Schwiegermutter", "eine Stiefmutter", "eine Großmutter", "eine Cousine"],
+      "correctAnswer": "eine Stiefmutter"
+    }
+  },
+  {
+    "french": "un beau-père",
+    "german": "ein Stiefvater",
+    "phonetic": "[ɛ̃bopɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un beau-père'?",
+      "options": ["ein Schwiegervater", "ein Stiefvater", "ein Großvater", "ein Cousin"],
+      "correctAnswer": "ein Stiefvater"
+    }
+  },
+  {
+    "french": "il s'appelle/elle s'appelle",
+    "german": "er heißt/sie heißt",
+    "phonetic": "[ilsapɛl/ɛlsapɛl]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'il s'appelle/elle s'appelle'?",
+      "options": ["er ruft/sie ruft", "er heißt/sie heißt", "er nennt/sie nennt", "er sagt/sie sagt"],
+      "correctAnswer": "er heißt/sie heißt"
+    }
+  },
+  {
+    "french": "un enfant",
+    "german": "ein Kind",
+    "phonetic": "[ɛ̃nɑ̃fɑ̃]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die korrekte Bedeutung von 'un enfant'?",
+      "options": ["ein Junge", "ein Kind", "ein Baby", "ein Enkelkind"],
+      "correctAnswer": "ein Kind"
+    }
+  },
+  {
+    "french": "bien sûr",
+    "german": "sicherlich; na klar!",
+    "phonetic": "[bjɛ̃syʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'bien sûr'?",
+      "options": ["vielleicht", "sicherlich", "manchmal", "niemals"],
+      "correctAnswer": "sicherlich"
+    }
+  },
+  {
+    "french": "un grand-père",
+    "german": "ein Großvater",
+    "phonetic": "[ɛ̃grɑ̃pɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welche Übersetzung ist korrekt für 'un grand-père'?",
+      "options": ["ein Onkel", "ein Großvater", "ein Urgroßvater", "ein Vater"],
+      "correctAnswer": "ein Großvater"
+    }
+  },
+  {
+    "french": "une grand-mère",
+    "german": "eine Großmutter",
+    "phonetic": "[yngrɑ̃mɛʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'une grand-mère' ins Deutsche?",
+      "options": ["eine Tante", "eine Großmutter", "eine Urgroßmutter", "eine Mutter"],
+      "correctAnswer": "eine Großmutter"
+    }
+  },
+  {
+    "french": "un message",
+    "german": "eine Mitteilung, eine Nachricht",
+    "phonetic": "[ɛ̃mesaʒ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'un message'?",
+      "options": ["eine Mitteilung", "eine Frage", "ein Gespräch", "eine Antwort"],
+      "correctAnswer": "eine Mitteilung"
+    }
+  },
+  {
+    "french": "ton/ta/tes",
+    "german": "dein; deine",
+    "phonetic": "[tɔ̃/ta/te]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'ton/ta/tes'?",
+      "options": ["unser/unsere", "dein/deine", "sein/seine", "ihr/ihre"],
+      "correctAnswer": "dein/deine"
+    }
+  },
+  {
+    "french": "quand",
+    "german": "wann",
+    "phonetic": "[kɑ̃]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'quand'?",
+      "options": ["wo", "wann", "warum", "wie"],
+      "correctAnswer": "wann"
+    }
+  },
+  {
+    "french": "La chance!",
+    "german": "Du Glückspilz!; Glück muss man haben!",
+    "phonetic": "[laʃɑ̃s]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'La chance!' am besten?",
+      "options": ["Viel Erfolg!", "Du Glückspilz!", "Keine Sorge!", "Viel Spaß!"],
+      "correctAnswer": "Du Glückspilz!"
+    }
+  },
+  {
+    "french": "fêter",
+    "german": "etw. feiern",
+    "phonetic": "[fete]",
+    "tip": "qc = etwas",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'fêter'?",
+      "options": ["besuchen", "feiern", "spielen", "planen"],
+      "correctAnswer": "feiern"
+    }
+  },
+  {
+    "french": "génial",
+    "german": "genial; toll",
+    "phonetic": "[ʒenjal]",
+    "tip": "fam. (familiär/umgangssprachlich)",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'génial'?",
+      "options": ["langweilig", "genial", "schwierig", "interessant"],
+      "correctAnswer": "genial"
+    }
+  },
+  {
+    "french": "un rocher",
+    "german": "ein Fels",
+    "phonetic": "[ɛ̃ʁoʃe]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welche Übersetzung ist korrekt für 'un rocher'?",
+      "options": ["ein Berg", "ein Fels", "ein Stein", "eine Klippe"],
+      "correctAnswer": "ein Fels"
+    }
+  },
+  {
+    "french": "inviter",
+    "german": "jdn. einladen",
+    "phonetic": "[ɛ̃vite]",
+    "tip": "qn = jemanden",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'inviter'?",
+      "options": ["einladen", "besuchen", "treffen", "abholen"],
+      "correctAnswer": "einladen"
+    }
+  },
+  {
+    "french": "en famille",
+    "german": "mit der Familie",
+    "phonetic": "[ɑ̃famij]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'en famille' ins Deutsche?",
+      "options": ["in der Familie", "mit der Familie", "ohne Familie", "für die Familie"],
+      "correctAnswer": "mit der Familie"
+    }
+  },
+  {
+    "french": "son/sa/ses",
+    "german": "sein/seine; ihr/ihre",
+    "phonetic": "[sɔ̃/sa/se]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'son/sa/ses'?",
+      "options": ["mein/meine", "dein/deine", "sein/seine; ihr/ihre", "unser/unsere"],
+      "correctAnswer": "sein/seine; ihr/ihre"
+    }
+  },
+  {
+    "french": "en plus",
+    "german": "außerdem; zusätzlich",
+    "phonetic": "[ɑ̃plys]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'en plus'?",
+      "options": ["stattdessen", "außerdem", "trotzdem", "deswegen"],
+      "correctAnswer": "außerdem"
+    }
+  },
+  {
+    "french": "maintenant",
+    "german": "jetzt",
+    "phonetic": "[mɛ̃tnɑ̃]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'maintenant'?",
+      "options": ["später", "jetzt", "vorher", "immer"],
+      "correctAnswer": "jetzt"
+    }
+  },
+  {
+    "french": "une maison",
+    "german": "ein Haus",
+    "phonetic": "[ynmezɔ̃]",
+    "tip": "La maison des grands parents: Des setzt sich hier zusammen aus de + les",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Wie übersetzt man 'une maison'?",
+      "options": ["eine Wohnung", "ein Haus", "ein Zimmer", "ein Gebäude"],
+      "correctAnswer": "ein Haus"
+    }
+  },
+  {
+    "french": "papi",
+    "german": "Opa (ugs.)",
+    "phonetic": "[papi]",
+    "tip": "m. (maskulin), fam. (familiär/umgangssprachlich)",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was ist die richtige Übersetzung von 'papi'?",
+      "options": ["Papa", "Bruder", "Opa", "Onkel"],
+      "correctAnswer": "Opa"
+    }
+  },
+  {
+    "french": "une photo",
+    "german": "ein Foto",
+    "phonetic": "[ynfoto]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Welches deutsche Wort entspricht 'une photo'?",
+      "options": ["ein Bild", "ein Foto", "eine Kamera", "ein Film"],
+      "correctAnswer": "ein Foto"
+    }
+  },
+  {
+    "french": "C'est l'horreur!",
+    "german": "Das ist schrecklich!",
+    "phonetic": "[seloʁœʁ]",
+    "tip": "",
+    "difficulty": "hard",
+    "multipleChoice": {
+      "question": "Was bedeutet 'C'est l'horreur!'?",
+      "options": ["Das ist wunderbar!", "Das ist schrecklich!", "Das ist interessant!", "Das ist langweilig!"],
+      "correctAnswer": "Das ist schrecklich!"
+    }
+  }
+]
