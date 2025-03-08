@@ -298,18 +298,6 @@ body.dark {
     20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
-/* Floating audio player */
-#audio-player {
-    z-index: 20;
-    transition: all 0.3s ease;
-    background-color: var(--card-bg);
-    border-radius: 1rem;
-    padding: 0.5rem;
-    box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -2px var(--shadow-color);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-}
-
 /* Animated spaced repetition icon */
 .brain-pulse {
     animation: brain-pulse 2s infinite;

@@ -38,9 +38,6 @@ function initializeApp() {
     // Initialize dark mode
     initDarkMode();
     
-    // Initialize audio pronunciation
-    initAudioPronunciation();
-    
     // Check for study reminders
     checkStudyReminders();
 }
@@ -200,65 +197,6 @@ function updateDarkModeToggle() {
                 icon.classList.add('fa-moon');
             }
         }
-    }
-}
-
-/**
- * Initialize audio pronunciation feature
- */
-function initAudioPronunciation() {
-    const toggleBtn = document.getElementById('toggle-pronunciation');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-            const isPronunciationEnabled = localStorage.getItem('pronunciationEnabled') !== 'false';
-            localStorage.setItem('pronunciationEnabled', (!isPronunciationEnabled).toString());
-            updatePronunciationButton(!isPronunciationEnabled);
-            
-            notificationManager.show(`Pronunciation ${!isPronunciationEnabled ? 'enabled' : 'disabled'}`, 'info');
-        });
-        
-        // Set initial state
-        const isPronunciationEnabled = localStorage.getItem('pronunciationEnabled') !== 'false';
-        updatePronunciationButton(isPronunciationEnabled);
-    }
-}
-
-/**
- * Update pronunciation button appearance
- */
-function updatePronunciationButton(enabled) {
-    const toggleBtn = document.getElementById('toggle-pronunciation');
-    if (toggleBtn) {
-        const icon = toggleBtn.querySelector('i');
-        if (icon) {
-            if (enabled) {
-                icon.classList.remove('fa-volume-mute');
-                icon.classList.add('fa-volume-up');
-                toggleBtn.classList.add('text-primary');
-                toggleBtn.classList.remove('text-gray-400');
-            } else {
-                icon.classList.remove('fa-volume-up');
-                icon.classList.add('fa-volume-mute');
-                toggleBtn.classList.remove('text-primary');
-                toggleBtn.classList.add('text-gray-400');
-            }
-        }
-    }
-}
-
-/**
- * Pronounce a French word using speech synthesis
- */
-function pronounceWord(word) {
-    if (localStorage.getItem('pronunciationEnabled') === 'false') {
-        return;
-    }
-    
-    if ('speechSynthesis' in window) {
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = 'fr-FR';
-        utterance.rate = 0.9;
-        window.speechSynthesis.speak(utterance);
     }
 }
 
@@ -609,3 +547,85 @@ function handleKeyboardShortcuts(e) {
             break;
     }
 }
+
+// Menu and Modal functionality
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile menu toggle
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    mobileMenuButton?.addEventListener('click', () => {
+        mobileMenu?.classList.toggle('hidden');
+    });
+
+    // Modal functionality
+    const modals = {
+        progress: document.getElementById('progress-modal'),
+        achievements: document.getElementById('achievements-modal')
+    };
+
+    const menuButtons = {
+        progress: document.getElementById('menu-progress'),
+        achievements: document.getElementById('menu-achievements')
+    };
+
+    // Mobile menu buttons
+    const mobileButtons = Array.from(document.querySelectorAll('#mobile-menu button'));
+
+    // Close buttons
+    const closeButtons = document.querySelectorAll('.modal-close');
+
+    // Function to open modal
+    const openModal = (modalId) => {
+        modals[modalId]?.classList.remove('hidden');
+        modals[modalId]?.classList.add('flex');
+        // Close mobile menu if open
+        mobileMenu?.classList.add('hidden');
+    };
+
+    // Function to close all modals
+    const closeAllModals = () => {
+        Object.values(modals).forEach(modal => {
+            if (modal) {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }
+        });
+    };
+
+    // Add click events for menu buttons
+    Object.entries(menuButtons).forEach(([key, button]) => {
+        button?.addEventListener('click', () => openModal(key));
+    });
+
+    // Add click events for mobile menu buttons
+    mobileButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+            const modalKeys = Object.keys(modals);
+            if (index < modalKeys.length) {
+                openModal(modalKeys[index]);
+            }
+        });
+    });
+
+    // Close button functionality
+    closeButtons.forEach(button => {
+        button.addEventListener('click', closeAllModals);
+    });
+
+    // Close modal when clicking outside
+    Object.values(modals).forEach(modal => {
+        modal?.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeAllModals();
+            }
+        });
+    });
+
+    // Close modals with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeAllModals();
+        }
+    });
+});

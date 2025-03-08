@@ -12,11 +12,19 @@ class FlashcardManager {
         this.testStartTime = null;
         this.timeAttackTimeLimit = 60; // 60 seconds default for time attack
         this.timeAttackTimer = null;
+        this.seenWords = new Set(); // Track words we've seen in this session
         
         // DOM elements
         this.flashcardContainer = document.getElementById('flashcard-container');
         this.resultsContainer = document.getElementById('results-container');
-        this.modeSelection = document.getElementById('mode-selection');
+        this.studyModesContainer = document.querySelector('.study-modes');
+        this.backButton = document.getElementById('back-to-modes');
+        this.studyBanner = document.querySelector('.study-banner');
+        this.languageSelection = document.querySelector('.language-selection');
+        this.mainHeader = document.querySelector('.main-header');
+        this.testStatsBanner = document.querySelector('.test-stats-banner');
+        this.correctAnswersDisplay = document.getElementById('correct-answers');
+        this.wrongAnswersDisplay = document.getElementById('wrong-answers');
         
         // Initialize
         this.setupEventListeners();
@@ -31,10 +39,15 @@ class FlashcardManager {
         document.getElementById('test-mode').addEventListener('click', () => this.startTestMode());
         document.getElementById('time-attack').addEventListener('click', () => this.startTimeAttackMode());
         document.getElementById('difficult-words').addEventListener('click', () => this.startDifficultWordsMode());
+        document.getElementById('multiple-choice').addEventListener('click', () => this.startMultipleChoiceMode());
+        document.getElementById('spaced-repetition').addEventListener('click', () => this.startSpacedRepetitionMode());
         
         // Language direction buttons
         document.getElementById('french-to-german').addEventListener('click', () => this.changeLanguageDirection('french-to-german'));
         document.getElementById('german-to-french').addEventListener('click', () => this.changeLanguageDirection('german-to-french'));
+        
+        // Back button
+        this.backButton?.addEventListener('click', () => this.showModeSelection());
     }
     
     /**
@@ -76,22 +89,52 @@ class FlashcardManager {
         this.currentIndex = 0;
         this.testAnswers = [];
         this.isShowingAnswer = false;
+        this.seenWords.clear(); // Reset seen words for new session
         
-        // Hide mode selection and results, show flashcard container
-        this.modeSelection.classList.add('hidden');
+        // Hide non-essential UI elements
+        this.studyBanner?.classList.add('hidden');
+        this.mainHeader?.classList.add('hidden');
+        this.languageSelection?.classList.add('hidden');
+        document.querySelectorAll('.bg-slate-50').forEach(container => {
+            if (container.querySelector('h2')?.textContent.includes('Select Mode')) {
+                container.classList.add('hidden');
+            }
+        });
+
+        // Show test stats for test modes
+        if (mode === 'test' || mode === 'time-attack' || mode === 'multiple-choice') {
+            this.testStatsBanner?.classList.remove('hidden');
+            this.updateTestStats(0, 0);
+        }
+
+        // Show back button
+        this.backButton?.classList.remove('hidden');
+        
+        // Show flashcard container
         this.resultsContainer.classList.add('hidden');
         this.flashcardContainer.classList.remove('hidden');
         
-        // Get appropriate items based on mode
-        if (mode === 'difficult') {
-            this.currentItems = vocabularyManager.getDifficultWords(10);
-        } else if (mode === 'multiple-choice') {
-            this.currentItems = vocabularyManager.getRandomItems(10);
-        } else {
-            this.currentItems = vocabularyManager.getRandomItems(10);
-        }
+        // Scroll to flashcard container
+        this.flashcardContainer.scrollIntoView({ behavior: 'smooth' });
         
-        // For test and time attack modes, we track stats
+        // Load initial batch of items based on mode
+        if (mode === 'difficult') {
+            this.currentItems = vocabularyManager.getDifficultWords();
+        } else if (mode === 'multiple-choice') {
+            // For multiple choice, get all vocabulary items
+            this.currentItems = vocabularyManager.getVocabularyItems();
+            // Shuffle them for random order
+            this.shuffleArray(this.currentItems);
+        } else if (mode === 'spaced-repetition') {
+            this.currentItems = vocabularyManager.getSpacedRepetitionItems();
+        } else {
+            this.currentItems = vocabularyManager.getVocabularyItems();
+        }
+
+        // Track these words as seen
+        this.currentItems.forEach(item => this.seenWords.add(item.french));
+        
+        // For test and time attack modes, track stats
         if (mode === 'test' || mode === 'time-attack' || mode === 'multiple-choice') {
             this.testStartTime = new Date();
             statsManager.startSession();
@@ -139,6 +182,13 @@ class FlashcardManager {
      */
     startMultipleChoiceMode() {
         this.startMode('multiple-choice');
+    }
+    
+    /**
+     * Start spaced repetition mode
+     */
+    startSpacedRepetitionMode() {
+        this.startMode('spaced-repetition');
     }
     
     /**
@@ -204,10 +254,11 @@ class FlashcardManager {
         content += `
             ${progress}
             ${timer}
-            <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner">
+            <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner-lg transform hover:scale-[1.01] transition-all">
                 <h3 class="text-xl mb-2">${questionLanguage === 'french' ? 'Français' : 'Deutsch'}</h3>
                 <p class="text-3xl font-bold">${item[questionLanguage]}</p>
-                ${item.phonetic && questionLanguage === 'french' ? `<p class="phonetic text-gray-600 mt-2">${item.phonetic}</p>` : ''}
+                ${item.phonetic && questionLanguage === 'french' ? 
+                    `<p class="phonetic text-gray-600 mt-2">[${item.phonetic}]</p>` : ''}
             </div>
         `;
         
@@ -216,7 +267,7 @@ class FlashcardManager {
             if (!this.isShowingAnswer) {
                 content += `
                     <div class="flex justify-center">
-                        <button id="show-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition">
+                        <button id="show-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition shadow-md hover:shadow-lg">
                             <i class="fas fa-eye mr-2"></i>Show Answer
                         </button>
                     </div>
@@ -224,23 +275,24 @@ class FlashcardManager {
             } else {
                 // Show answer area
                 content += `
-                    <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner">
+                    <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner-lg transform hover:scale-[1.01] transition-all">
                         <h3 class="text-xl mb-2">${answerLanguage === 'french' ? 'Français' : 'Deutsch'}</h3>
                         <p class="text-3xl font-bold">${item[answerLanguage]}</p>
-                        ${item.phonetic && answerLanguage === 'french' ? `<p class="phonetic text-gray-600 mt-2">${item.phonetic}</p>` : ''}
+                        ${item.phonetic && answerLanguage === 'french' ? 
+                            `<p class="phonetic text-gray-600 mt-2">[${item.phonetic}]</p>` : ''}
                         ${item.tip ? `<div class="mt-4 p-3 bg-accent bg-opacity-20 rounded-md"><i class="fas fa-lightbulb text-accent mr-2"></i>${item.tip}</div>` : ''}
                     </div>
                     
-                    <div class="flex justify-between mt-6">
-                        <button id="mark-difficult" class="bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition">
+                    <div class="flex flex-col sm:flex-row justify-between gap-4 mt-6">
+                        <button id="mark-difficult" class="bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
                             <i class="fas fa-exclamation-triangle mr-2"></i>Mark as Difficult
                         </button>
-                        <div>
-                            <button id="prev-card" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition mr-2" 
-                                ${this.currentIndex === 0 ? 'disabled' : ''}>
+                        <div class="flex gap-2">
+                            <button id="prev-card" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center" 
+                                ${this.currentIndex === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
                                 <i class="fas fa-arrow-left mr-2"></i>Previous
                             </button>
-                            <button id="next-card" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition">
+                            <button id="next-card" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center">
                                 ${this.currentIndex === this.currentItems.length - 1 ? 'Finish' : 'Next'}<i class="fas fa-arrow-right ml-2"></i>
                             </button>
                         </div>
@@ -248,48 +300,49 @@ class FlashcardManager {
                 `;
             }
         }
-        // For multiple choice mode, show options from the JSON
+        // For multiple choice mode, show options
         else if (this.currentMode === 'multiple-choice') {
-            // Get the multiple choice data from the current item
-            const multipleChoice = item.multipleChoice || null;
+            const correctAnswer = item[answerLanguage];
             
-            if (multipleChoice) {
+            // Get all other vocabulary items for wrong options
+            const allOtherItems = vocabularyManager.getVocabularyItems()
+                .filter(w => w[answerLanguage] !== correctAnswer)
+                .map(w => w[answerLanguage]);
+            
+            // Randomly select 3 wrong answers from all possibilities
+            const shuffledWrongAnswers = this.shuffleArray([...allOtherItems]).slice(0, 3);
+            
+            // Create options array with correct answer and wrong answers
+            const options = this.shuffleArray([correctAnswer, ...shuffledWrongAnswers]);
+            
+            content += `
+                <div class="mb-6">
+                    <h3 class="text-xl mb-4">Select the correct ${answerLanguage === 'french' ? 'French' : 'German'} translation:</h3>
+                    <div class="flex flex-col gap-3">
+            `;
+            
+            options.forEach(option => {
                 content += `
-                    <div class="mb-6">
-                        <h3 class="text-xl mb-4">${multipleChoice.question}</h3>
-                        <div class="flex flex-col gap-3">
+                    <label class="multiple-choice-option bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-gray-200 transition flex items-center shadow-md">
+                        <input type="radio" name="multiple-choice" value="${option}" class="mr-3">
+                        <span>${option}</span>
+                    </label>
                 `;
-                
-                // Shuffle the options
-                const options = [...multipleChoice.options];
-                this.shuffleArray(options);
-                
-                options.forEach(option => {
-                    content += `
-                        <label class="multiple-choice-option bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-gray-200 transition flex items-center">
-                            <input type="radio" name="multiple-choice" value="${option}" class="mr-3">
-                            <span>${option}</span>
-                        </label>
-                    `;
-                });
-                
-                content += `
-                        </div>
+            });
+            
+            content += `
                     </div>
-                    
-                    <div class="flex justify-between mt-6">
-                        <button id="skip-question" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition">
-                            <i class="fas fa-forward mr-2"></i>Skip
-                        </button>
-                        <button id="submit-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition">
-                            Submit<i class="fas fa-paper-plane ml-2"></i>
-                        </button>
-                    </div>
-                `;
-            } else {
-                // Fallback to text input if no multiple choice data
-                content += this.getTextInputContent(answerLanguage, item);
-            }
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-between gap-4 mt-6">
+                    <button id="skip-question" class="bg-gray-300 text-gray-800 px-4 py-3 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
+                        <i class="fas fa-forward mr-2"></i>Skip
+                    </button>
+                    <button id="submit-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
+                        Submit<i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            `;
         }
         // For test and time attack modes, provide answer input field
         else if (this.currentMode === 'test' || this.currentMode === 'time-attack' || this.currentMode === 'difficult') {
@@ -298,8 +351,8 @@ class FlashcardManager {
         
         // Add quit button for all modes
         content += `
-            <div class="mt-6 text-center">
-                <button id="quit-session" class="text-gray-500 hover:text-red-500 transition">
+            <div class="mt-6 text-center pt-4 border-t border-slate-200">
+                <button id="quit-session" class="text-gray-500 hover:text-red-500 transition flex items-center justify-center mx-auto">
                     <i class="fas fa-times mr-1"></i>Quit Session
                 </button>
             </div>
@@ -311,7 +364,7 @@ class FlashcardManager {
         // Add event listeners for buttons
         this.addFlashcardEventListeners();
     }
-    
+
     /**
      * Get text input content for test modes
      * @param {string} answerLanguage - The language of the answer
@@ -322,20 +375,288 @@ class FlashcardManager {
         return `
             <div class="mb-6">
                 <label for="answer-input" class="block text-xl mb-2">${answerLanguage === 'french' ? 'Français' : 'Deutsch'}</label>
-                <input type="text" id="answer-input" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent" 
+                <input type="text" id="answer-input" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent shadow-md" 
                     placeholder="Type your answer here..." autocomplete="off">
                 ${item.tip ? `<div class="mt-2 text-sm text-gray-500"><i class="fas fa-lightbulb text-yellow-500 mr-1"></i>Hint: ${item.tip}</div>` : ''}
             </div>
             
-            <div class="flex justify-between">
-                <button id="skip-question" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition">
+            <div class="flex flex-col sm:flex-row justify-between gap-4">
+                <button id="skip-question" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
                     <i class="fas fa-forward mr-2"></i>Skip
                 </button>
-                <button id="submit-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition">
+                <button id="submit-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
                     Submit<i class="fas fa-paper-plane ml-2"></i>
                 </button>
             </div>
         `;
+    }
+    
+    /**
+     * Check the user's answer for multiple choice questions
+     */
+    checkMultipleChoiceAnswer() {
+        const selectedOption = document.querySelector('input[name="multiple-choice"]:checked');
+        if (!selectedOption) {
+            notificationManager.show('Please select an option', 'error');
+            return;
+        }
+        
+        const userAnswer = selectedOption.value;
+        const item = this.currentItems[this.currentIndex];
+        const direction = vocabularyManager.getDirection();
+        const answerLanguage = direction === 'french-to-german' ? 'german' : 'french';
+        const correctAnswer = item[answerLanguage];
+        
+        // Check if answer is correct
+        const isCorrect = userAnswer === correctAnswer;
+        
+        // Record the answer
+        this.recordAnswer(isCorrect, userAnswer);
+        
+        // Show feedback
+        this.showMultipleChoiceFeedback(isCorrect, correctAnswer, item.tip);
+    }
+    
+    /**
+     * Start practice mode
+     */
+    startPracticeMode() {
+        this.startMode('practice');
+    }
+    
+    /**
+     * Start test mode
+     */
+    startTestMode() {
+        this.startMode('test');
+    }
+    
+    /**
+     * Start time attack mode
+     */
+    startTimeAttackMode() {
+        this.startMode('time-attack');
+    }
+    
+    /**
+     * Start difficult words mode
+     */
+    startDifficultWordsMode() {
+        this.startMode('difficult');
+    }
+    
+    /**
+     * Start multiple choice mode
+     */
+    startMultipleChoiceMode() {
+        this.startMode('multiple-choice');
+    }
+    
+    /**
+     * Start spaced repetition mode
+     */
+    startSpacedRepetitionMode() {
+        this.startMode('spaced-repetition');
+    }
+    
+    /**
+     * Start timer for time attack mode
+     */
+    startTimeAttackTimer() {
+        let timeLeft = this.timeAttackTimeLimit;
+        
+        const updateTimer = () => {
+            const timerElement = document.getElementById('time-attack-timer');
+            if (timerElement) {
+                timerElement.textContent = timeLeft;
+                
+                // Make timer red when time is running out
+                if (timeLeft <= 10) {
+                    timerElement.classList.add('text-red-500');
+                    timerElement.classList.add('animate-pulse');
+                }
+            }
+            
+            timeLeft--;
+            
+            if (timeLeft < 0) {
+                clearInterval(this.timeAttackTimer);
+                this.endSession();
+            }
+        };
+        
+        // Update timer every second
+        updateTimer();
+        this.timeAttackTimer = setInterval(updateTimer, 1000);
+    }
+    
+    /**
+     * Display the current flashcard
+     */
+    displayCurrentFlashcard() {
+        if (!this.currentItems.length) {
+            this.showNoWordsMessage();
+            return;
+        }
+        
+        const item = this.currentItems[this.currentIndex];
+        const direction = vocabularyManager.getDirection();
+        
+        let content = '';
+        
+        // Determine the question and answer based on the direction
+        const questionLanguage = direction === 'french-to-german' ? 'french' : 'german';
+        const answerLanguage = direction === 'french-to-german' ? 'german' : 'french';
+        
+        // Show card progress
+        const progress = `<div class="text-sm text-gray-500 mb-4">
+            Card ${this.currentIndex + 1} of ${this.currentItems.length}
+        </div>`;
+        
+        // For time attack mode, show timer
+        const timer = this.currentMode === 'time-attack' 
+            ? `<div class="text-xl font-bold mb-4">Time: <span id="time-attack-timer">${this.timeAttackTimeLimit}</span>s</div>` 
+            : '';
+        
+        // Show question
+        content += `
+            ${progress}
+            ${timer}
+            <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner-lg transform hover:scale-[1.01] transition-all">
+                <h3 class="text-xl mb-2">${questionLanguage === 'french' ? 'Français' : 'Deutsch'}</h3>
+                <p class="text-3xl font-bold">${item[questionLanguage]}</p>
+                ${item.phonetic && questionLanguage === 'french' ? 
+                    `<p class="phonetic text-gray-600 mt-2">[${item.phonetic}]</p>` : ''}
+            </div>
+        `;
+        
+        // For practice mode, provide option to show answer
+        if (this.currentMode === 'practice') {
+            if (!this.isShowingAnswer) {
+                content += `
+                    <div class="flex justify-center">
+                        <button id="show-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition shadow-md hover:shadow-lg">
+                            <i class="fas fa-eye mr-2"></i>Show Answer
+                        </button>
+                    </div>
+                `;
+            } else {
+                // Show answer area
+                content += `
+                    <div class="bg-gray-100 rounded-lg p-8 mb-6 shadow-inner-lg transform hover:scale-[1.01] transition-all">
+                        <h3 class="text-xl mb-2">${answerLanguage === 'french' ? 'Français' : 'Deutsch'}</h3>
+                        <p class="text-3xl font-bold">${item[answerLanguage]}</p>
+                        ${item.phonetic && answerLanguage === 'french' ? 
+                            `<p class="phonetic text-gray-600 mt-2">[${item.phonetic}]</p>` : ''}
+                        ${item.tip ? `<div class="mt-4 p-3 bg-accent bg-opacity-20 rounded-md"><i class="fas fa-lightbulb text-accent mr-2"></i>${item.tip}</div>` : ''}
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row justify-between gap-4 mt-6">
+                        <button id="mark-difficult" class="bg-yellow-500 text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
+                            <i class="fas fa-exclamation-triangle mr-2"></i>Mark as Difficult
+                        </button>
+                        <div class="flex gap-2">
+                            <button id="prev-card" class="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center" 
+                                ${this.currentIndex === 0 ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
+                                <i class="fas fa-arrow-left mr-2"></i>Previous
+                            </button>
+                            <button id="next-card" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center">
+                                ${this.currentIndex === this.currentItems.length - 1 ? 'Finish' : 'Next'}<i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+        // For multiple choice mode, show options
+        else if (this.currentMode === 'multiple-choice') {
+            const correctAnswer = item[answerLanguage];
+            
+            // Get all other vocabulary items for wrong options
+            const allOtherItems = vocabularyManager.getVocabularyItems()
+                .filter(w => w[answerLanguage] !== correctAnswer)
+                .map(w => w[answerLanguage]);
+            
+            // Randomly select 3 wrong answers from all possibilities
+            const shuffledWrongAnswers = this.shuffleArray([...allOtherItems]).slice(0, 3);
+            
+            // Create options array with correct answer and wrong answers
+            const options = this.shuffleArray([correctAnswer, ...shuffledWrongAnswers]);
+            
+            content += `
+                <div class="mb-6">
+                    <h3 class="text-xl mb-4">Select the correct ${answerLanguage === 'french' ? 'French' : 'German'} translation:</h3>
+                    <div class="flex flex-col gap-3">
+            `;
+            
+            options.forEach(option => {
+                content += `
+                    <label class="multiple-choice-option bg-gray-100 p-4 rounded-lg cursor-pointer hover:bg-gray-200 transition flex items-center shadow-md">
+                        <input type="radio" name="multiple-choice" value="${option}" class="mr-3">
+                        <span>${option}</span>
+                    </label>
+                `;
+            });
+            
+            content += `
+                    </div>
+                </div>
+                
+                <div class="flex flex-col sm:flex-row justify-between gap-4 mt-6">
+                    <button id="skip-question" class="bg-gray-300 text-gray-800 px-4 py-3 rounded-lg font-medium hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
+                        <i class="fas fa-forward mr-2"></i>Skip
+                    </button>
+                    <button id="submit-answer" class="bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-opacity-80 transition shadow-md flex items-center justify-center">
+                        Submit<i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </div>
+            `;
+        }
+        // For test and time attack modes, provide answer input field
+        else if (this.currentMode === 'test' || this.currentMode === 'time-attack' || this.currentMode === 'difficult') {
+            content += this.getTextInputContent(answerLanguage, item);
+        }
+        
+        // Add quit button for all modes
+        content += `
+            <div class="mt-6 text-center pt-4 border-t border-slate-200">
+                <button id="quit-session" class="text-gray-500 hover:text-red-500 transition flex items-center justify-center mx-auto">
+                    <i class="fas fa-times mr-1"></i>Quit Session
+                </button>
+            </div>
+        `;
+        
+        // Set the content
+        this.flashcardContainer.innerHTML = content;
+        
+        // Add event listeners for buttons
+        this.addFlashcardEventListeners();
+    }
+
+    /**
+     * Check the user's answer for multiple choice questions
+     */
+    checkMultipleChoiceAnswer() {
+        const selectedOption = document.querySelector('input[name="multiple-choice"]:checked');
+        if (!selectedOption) {
+            notificationManager.show('Please select an option', 'error');
+            return;
+        }
+        
+        const userAnswer = selectedOption.value;
+        const item = this.currentItems[this.currentIndex];
+        const direction = vocabularyManager.getDirection();
+        const answerLanguage = direction === 'french-to-german' ? 'german' : 'french';
+        const correctAnswer = item[answerLanguage];
+        
+        // Check if answer is correct
+        const isCorrect = userAnswer === correctAnswer;
+        
+        // Record the answer
+        this.recordAnswer(isCorrect, userAnswer);
+        
+        // Show feedback
+        this.showMultipleChoiceFeedback(isCorrect, correctAnswer, item.tip);
     }
     
     /**
@@ -500,7 +821,9 @@ class FlashcardManager {
         
         const userAnswer = selectedOption.value;
         const item = this.currentItems[this.currentIndex];
-        const correctAnswer = item.multipleChoice.correctAnswer;
+        const direction = vocabularyManager.getDirection();
+        const answerLanguage = direction === 'french-to-german' ? 'german' : 'french';
+        const correctAnswer = item[answerLanguage];
         
         // Check if answer is correct
         const isCorrect = userAnswer === correctAnswer;
@@ -617,9 +940,21 @@ class FlashcardManager {
             correct: isCorrect
         });
         
+        // Update spaced repetition data
+        if (userAnswer !== '') { // Only update if the user actually attempted the word
+            vocabularyManager.updateSpacedRepetition(item.french, isCorrect);
+        }
+        
         // If answer is incorrect, mark word as difficult
         if (!isCorrect && userAnswer !== '') {
             vocabularyManager.markAsDifficult(item.french);
+        }
+        
+        // Update test stats if in a test mode
+        if (this.currentMode === 'test' || this.currentMode === 'time-attack' || this.currentMode === 'multiple-choice') {
+            const correct = this.testAnswers.filter(a => a.correct).length;
+            const wrong = this.testAnswers.filter(a => !a.correct).length;
+            this.updateTestStats(correct, wrong);
         }
     }
     
@@ -680,13 +1015,48 @@ class FlashcardManager {
     }
     
     /**
-     * Move to the next question or end the session
+     * Move to the next question or load more items if needed
      */
     moveToNextQuestion() {
+        // Check if we're at the end of our current batch
         if (this.currentIndex === this.currentItems.length - 1) {
-            this.endSession();
+            // For all modes except time attack, load more items
+            if (this.currentMode !== 'time-attack') {
+                // Get more items based on the current mode
+                let newItems = [];
+                if (this.currentMode === 'difficult') {
+                    newItems = vocabularyManager.getDifficultWords();
+                } else if (this.currentMode === 'spaced-repetition') {
+                    newItems = vocabularyManager.getSpacedRepetitionItems();
+                } else {
+                    // For other modes, get more random items we haven't seen
+                    const remainingItems = vocabularyManager.getVocabularyItems().filter(item => !this.seenWords.has(item.french));
+                    if (remainingItems.length > 0) {
+                        // Shuffle remaining items
+                        newItems = vocabularyManager.shuffleArray(remainingItems);
+                    } else {
+                        // If we've seen all words, reset and start over
+                        this.seenWords.clear();
+                        newItems = vocabularyManager.getVocabularyItems();
+                    }
+                }
+                
+                // Add new items and continue
+                if (newItems.length > 0) {
+                    newItems.forEach(item => this.seenWords.add(item.french));
+                    this.currentItems = this.currentItems.concat(newItems);
+                    this.currentIndex++;
+                    this.isShowingAnswer = false;
+                    this.displayCurrentFlashcard();
+                }
+            } else {
+                // For time attack, end the session
+                this.endSession();
+            }
         } else {
+            // Move to next card
             this.currentIndex++;
+            this.isShowingAnswer = false;
             this.displayCurrentFlashcard();
         }
     }
@@ -809,7 +1179,26 @@ class FlashcardManager {
     showModeSelection() {
         this.flashcardContainer.classList.add('hidden');
         this.resultsContainer.classList.add('hidden');
-        this.modeSelection.classList.remove('hidden');
+        
+        // Show all UI elements
+        this.studyBanner?.classList.remove('hidden');
+        this.mainHeader?.classList.remove('hidden');
+        this.languageSelection?.classList.remove('hidden');
+        this.testStatsBanner?.classList.add('hidden');
+        document.querySelectorAll('.bg-slate-50').forEach(container => {
+            if (container.querySelector('h2')?.textContent.includes('Select Mode')) {
+                container.classList.remove('hidden');
+            }
+        });
+
+        // Hide back button
+        this.backButton?.classList.add('hidden');
+        
+        // Reset test stats
+        this.updateTestStats(0, 0);
+        
+        // Scroll to study modes
+        document.querySelector('.study-modes')?.scrollIntoView({ behavior: 'smooth' });
     }
     
     /**
@@ -835,11 +1224,26 @@ class FlashcardManager {
     /**
      * Fisher-Yates shuffle algorithm
      * @param {Array} array - The array to shuffle
+     * @returns {Array} - The shuffled array
      */
     shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
+        const shuffled = [...array]; // Create a copy to avoid modifying original
+        for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled; // Return the shuffled array
+    }
+    
+    /**
+     * Update the test statistics display
+     */
+    updateTestStats(correct, wrong) {
+        if (this.correctAnswersDisplay) {
+            this.correctAnswersDisplay.textContent = correct;
+        }
+        if (this.wrongAnswersDisplay) {
+            this.wrongAnswersDisplay.textContent = wrong;
         }
     }
 }

@@ -170,6 +170,13 @@ class VocabularyManager {
     }
 
     /**
+     * Alias for getDifficultItems for backward compatibility
+     */
+    getDifficultWords(count = 10) {
+        return this.getDifficultItems(count);
+    }
+
+    /**
      * Fisher-Yates shuffle algorithm
      * @param {Array} array - The array to shuffle
      * @returns {Array} - The shuffled array
@@ -361,6 +368,33 @@ class VocabularyManager {
         // Also notify stats manager to track this
         if (statsManager) {
             statsManager.markWordAsLearned(word);
+        }
+    }
+
+    /**
+     * Mark a word as difficult
+     * @param {string} word - The French word to mark as difficult
+     */
+    markAsDifficult(word) {
+        const item = this.vocabularyItems.find(i => i.french === word);
+        if (item) {
+            item.difficulty = 'hard';
+            
+            // Also adjust spaced repetition data to review this word more frequently
+            if (this.spacedRepetitionData[word]) {
+                const data = this.spacedRepetitionData[word];
+                data.interval = Math.max(1, Math.floor(data.interval / 2)); // Halve the interval
+                data.ease = Math.max(1.3, data.ease - 0.1); // Make it slightly harder
+                data.nextReview = Date.now() + (data.interval * 86400000); // Update next review
+                this.saveSpacedRepetitionData();
+            } else {
+                // If no SRS data exists, initialize it with shorter intervals
+                this.initializeSpacedRepetition(word);
+                const data = this.spacedRepetitionData[word];
+                data.interval = 1;
+                data.ease = 1.5; // Start with lower ease factor
+                this.saveSpacedRepetitionData();
+            }
         }
     }
 

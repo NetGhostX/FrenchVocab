@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts - Added Noto Sans for better Unicode/diacritics support -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             theme: {
@@ -25,6 +25,7 @@
                     },
                     fontFamily: {
                         sans: ['Poppins', 'sans-serif'],
+                        phonetic: ['Noto Sans', 'sans-serif']
                     },
                     animation: {
                         'bounce-slow': 'bounce 3s infinite',
@@ -38,24 +39,70 @@
             }
         }
     </script>
+    <style>
+        /* Custom styles for phonetic text */
+        .phonetic {
+            font-family: 'Noto Sans', sans-serif;
+            letter-spacing: 0.03em;
+            font-weight: 400;
+        }
+    </style>
 </head>
 <body class="bg-white text-slate-800 min-h-screen">
+    <!-- Navigation Menu -->
+    <nav class="bg-white shadow-sm border-b border-slate-100">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold text-primary">French Vocab</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-4">
+                    <button id="menu-progress" class="px-4 py-2 rounded-lg hover:bg-slate-50 transition flex items-center">
+                        <i class="fas fa-chart-line text-primary mr-2"></i>
+                        Progress
+                    </button>
+                    <button id="menu-achievements" class="px-4 py-2 rounded-lg hover:bg-slate-50 transition flex items-center">
+                        <i class="fas fa-medal text-accent mr-2"></i>
+                        Achievements
+                    </button>
+                    <button id="theme-toggle" class="bg-slate-800 dark:bg-white text-white dark:text-slate-800 rounded-full p-2 shadow-lg hover:shadow-xl transition-all">
+                        <i class="fas fa-moon dark:fa-sun"></i>
+                    </button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="p-2 rounded-lg hover:bg-slate-50">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button class="block w-full px-4 py-2 text-left rounded-lg hover:bg-slate-50 transition">
+                    <i class="fas fa-chart-line text-primary mr-2"></i>
+                    Progress
+                </button>
+                <button class="block w-full px-4 py-2 text-left rounded-lg hover:bg-slate-50 transition">
+                    <i class="fas fa-medal text-accent mr-2"></i>
+                    Achievements
+                </button>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mx-auto px-4 py-6">
         <!-- Header with animated gradient text -->
-        <header class="mb-8 text-center">
+        <header class="mb-8 text-center main-header">
             <h1 class="text-4xl md:text-5xl font-bold mb-2 animated-gradient">
                 <span>French Vocabulary</span> <span class="text-primary">Flashcards</span>
             </h1>
             <p class="text-lg text-slate-600">Master French vocabulary with interactive learning tools</p>
-            
-            <!-- Theme toggle button -->
-            <button id="theme-toggle" class="mt-3 bg-slate-800 dark:bg-white text-white dark:text-slate-800 rounded-full p-2 shadow-lg hover:shadow-xl transition-all">
-                <i class="fas fa-moon dark:fa-sun"></i>
-            </button>
         </header>
 
         <!-- Study progress banner -->
-        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-4 rounded-xl shadow-lg mb-8 transform hover:scale-[1.01] transition-all">
+        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-4 rounded-xl shadow-lg mb-8 transform hover:scale-[1.01] transition-all study-banner">
             <div class="flex items-center justify-between">
                 <div>
                     <h2 class="text-xl font-bold">Your Daily Progress</h2>
@@ -68,6 +115,26 @@
             </div>
             <div class="w-full bg-white/30 rounded-full h-2.5 mt-3">
                 <div id="daily-goal-progress" class="bg-white h-2.5 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- Test Stats Banner (Hidden by default) -->
+        <div class="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-4 rounded-xl shadow-lg mb-8 transform hover:scale-[1.01] transition-all hidden test-stats-banner">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold">Current Session Stats</h2>
+                    <p class="text-sm opacity-90">Keep going, you're doing great!</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="text-center">
+                        <span class="text-3xl font-bold" id="correct-answers">0</span>
+                        <span class="block text-sm">Correct</span>
+                    </div>
+                    <div class="text-center">
+                        <span class="text-3xl font-bold" id="wrong-answers">0</span>
+                        <span class="block text-sm">Wrong</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -84,156 +151,58 @@
             </div>
         </div>
 
-        <!-- Main App Container -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Left column: Stats & Rewards -->
-            <div>
-                <!-- Stats Card -->
-                <div class="bg-slate-50 rounded-xl shadow-sm p-6 mb-8 border border-slate-100">
-                    <h2 class="text-2xl font-bold mb-4 text-slate-700 flex items-center">
-                        <i class="fas fa-chart-line text-primary mr-2"></i>Your Progress
-                    </h2>
-                    <div class="mb-4">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-slate-700">Words Learned</span>
-                            <span id="words-learned" class="font-bold text-primary">0/0</span>
-                        </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5">
-                            <div id="progress-bar" class="bg-primary h-2.5 rounded-full" style="width: 0%"></div>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="bg-white p-4 rounded-lg border border-slate-100">
-                            <p class="font-bold text-2xl text-primary" id="accuracy">0%</p>
-                            <p class="text-sm text-slate-500">Accuracy</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-slate-100">
-                            <p class="font-bold text-2xl text-secondary" id="current-streak">0</p>
-                            <p class="text-sm text-slate-500">Current Streak</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-slate-100">
-                            <p class="font-bold text-2xl text-accent" id="total-correct">0</p>
-                            <p class="text-sm text-slate-500">Correct</p>
-                        </div>
-                        <div class="bg-white p-4 rounded-lg border border-slate-100">
-                            <p class="font-bold text-2xl text-slate-600" id="time-spent">0m</p>
-                            <p class="text-sm text-slate-500">Time Spent</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rewards Section -->
-                <div class="bg-slate-50 rounded-xl shadow-sm p-6 border border-slate-100">
-                    <h2 class="text-2xl font-bold mb-4 text-slate-700 flex items-center">
-                        <i class="fas fa-medal text-accent mr-2"></i>Achievements
-                    </h2>
-                    <div class="grid grid-cols-3 gap-4 mb-4" id="badges-container">
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                        <div class="bg-white text-slate-400 rounded-lg p-3 flex items-center justify-center border border-slate-100">
-                            <i class="fas fa-question"></i>
-                        </div>
-                    </div>
-                    <p class="text-center text-sm text-slate-500 mt-4">Continue learning to unlock more achievements!</p>
+        <!-- Study Modes and Flashcard Container -->
+        <div class="relative">
+            <!-- Study Modes -->
+            <div class="bg-slate-50 rounded-xl shadow-sm p-6 mb-8 border border-slate-100 study-modes">
+                <h2 class="text-xl font-bold mb-4 text-slate-700">
+                    <i class="fas fa-graduation-cap text-primary mr-2"></i>Select Mode
+                </h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <button id="practice-mode" class="mode-btn bg-primary text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-book text-2xl"></i>Practice
+                    </button>
+                    <button id="test-mode" class="mode-btn bg-secondary text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-tasks text-2xl"></i>Test
+                    </button>
+                    <button id="time-attack" class="mode-btn bg-accent text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-stopwatch text-2xl"></i>Time Attack
+                    </button>
+                    <button id="difficult-words" class="mode-btn bg-red-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-exclamation-triangle text-2xl"></i>Difficult Words
+                    </button>
+                    <button id="multiple-choice" class="mode-btn bg-purple-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-list-ol text-2xl"></i>Multiple Choice
+                    </button>
+                    <button id="spaced-repetition" class="mode-btn bg-emerald-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
+                        <i class="fas fa-brain text-2xl"></i>Spaced Repetition
+                    </button>
                 </div>
             </div>
 
-            <!-- Middle column: Flashcard -->
-            <div class="lg:col-span-2">
-                <!-- Mode selection -->
-                <div id="mode-selection" class="bg-slate-50 rounded-xl shadow-sm p-6 mb-8 border border-slate-100">
-                    <h2 class="text-2xl font-bold mb-6 text-slate-700 flex items-center">
-                        <i class="fas fa-graduation-cap text-primary mr-2"></i>Select Mode
-                    </h2>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        <button id="practice-mode" class="mode-btn bg-primary text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-book text-2xl"></i>Practice
-                        </button>
-                        <button id="test-mode" class="mode-btn bg-secondary text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-tasks text-2xl"></i>Test
-                        </button>
-                        <button id="time-attack" class="mode-btn bg-accent text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-stopwatch text-2xl"></i>Time Attack
-                        </button>
-                        <button id="difficult-words" class="mode-btn bg-red-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-exclamation-triangle text-2xl"></i>Difficult Words
-                        </button>
-                        <button id="multiple-choice" class="mode-btn bg-purple-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-list-ol text-2xl"></i>Multiple Choice
-                        </button>
-                        <button id="spaced-repetition" class="mode-btn bg-emerald-500 text-white p-4 rounded-xl font-bold hover:bg-opacity-80 transition flex flex-col items-center justify-center gap-2">
-                            <i class="fas fa-brain text-2xl"></i>Spaced Repetition
-                        </button>
-                    </div>
-                    
-                    <div class="mt-6 p-4 bg-white rounded-lg border border-slate-100">
-                        <h3 class="text-lg font-bold text-primary mb-2">New Features</h3>
-                        <ul class="list-disc pl-5 space-y-1 text-slate-600 text-sm">
-                            <li>Dark mode for comfortable night-time learning</li>
-                            <li>Spaced repetition mode for optimized memorization</li>
-                            <li>Study reminders and daily goals</li>
-                            <li>Word pronunciation feature</li>
-                            <li>Hints and phonetics to improve retention</li>
-                        </ul>
-                    </div>
-
-                    <!-- Search and filter -->
-                    <div class="mt-6 border-t border-slate-200 pt-6">
-                        <h3 class="text-lg font-bold text-slate-700 mb-4">Find Words</h3>
-                        <div class="flex gap-4">
-                            <div class="flex-1">
-                                <input type="text" id="word-search" class="w-full px-4 py-2 rounded-lg border border-slate-300 focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="Search vocabulary...">
-                            </div>
-                            <button id="search-btn" class="bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-opacity-80 transition">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Study reminder -->
-                    <div class="mt-6 flex items-center justify-between">
-                        <div class="flex items-center">
-                            <i class="fas fa-bell text-primary mr-2"></i>
-                            <span class="text-sm text-slate-700">Daily study reminder</span>
-                        </div>
-                        <label class="inline-flex items-center cursor-pointer">
-                            <input type="checkbox" id="reminder-toggle" class="sr-only peer">
-                            <div class="relative w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                        </label>
-                    </div>
+            <!-- Flashcard area -->
+            <div id="flashcard-container" class="bg-slate-50 rounded-xl shadow-sm p-6 mb-8 hidden border border-slate-100">
+                <!-- Content will be dynamically inserted here -->
+                
+                <!-- Back to Modes Button - Inside flashcard container -->
+                <div class="mt-6 text-center pt-4 border-t border-slate-200">
+                    <button id="back-to-modes" class="text-primary hover:text-primary-dark transition-colors hidden">
+                        <i class="fas fa-chevron-left mr-2"></i>Back to Modes
+                    </button>
                 </div>
+            </div>
 
-                <!-- Flashcard area -->
-                <div id="flashcard-container" class="bg-slate-50 rounded-xl shadow-sm p-6 mb-8 hidden border border-slate-100">
-                    <!-- Content will be dynamically inserted here -->
-                </div>
-
-                <!-- Results area -->
-                <div id="results-container" class="bg-slate-50 rounded-xl shadow-sm p-6 hidden border border-slate-100">
-                    <!-- Content will be dynamically inserted here -->
-                </div>
+            <!-- Results area -->
+            <div id="results-container" class="bg-slate-50 rounded-xl shadow-sm p-6 hidden border border-slate-100">
+                <!-- Content will be dynamically inserted here -->
             </div>
         </div>
     </div>
 
     <!-- Floating Audio Control -->
-    <div id="audio-player" class="fixed right-5 bottom-20 bg-white p-2 rounded-full shadow-sm flex items-center space-x-2 transform hover:scale-110 transition-transform border border-slate-100">
-        <button id="toggle-pronunciation" class="text-primary p-2 rounded-full hover:bg-slate-100 transition">
-            <i class="fas fa-volume-up"></i>
+    <div class="absolute top-4 right-4 flex gap-2">
+        <button id="toggle-dark-mode" class="text-primary p-2 rounded-full hover:bg-slate-100 transition">
+            <i class="fas fa-moon"></i>
         </button>
     </div>
 
